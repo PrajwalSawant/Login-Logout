@@ -7,6 +7,8 @@ import Login from "./component/loginPage";
 import LogOut from "./component/logout";
 import Layout from "./component/layout";
 import UserContext from "./context/userContext";
+import NotePage from "./component/notes";
+import EditPage from "./component/editPage";
 const App = () => {
   const [checkLogin, setCheckLogin] = useState(false);
   return (
@@ -20,6 +22,8 @@ const App = () => {
               <Route element={<List />} path="/list" />
               <Route element={<Login />} path="/login" />
               <Route element={<LogOut />} path="/logout" />
+              <Route element={<NotePage />} path="/notepage" />
+              <Route element={<EditPage />} path="/editNote/:id" />
             </Routes>
           </Layout>
         </div>
