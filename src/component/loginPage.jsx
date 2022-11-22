@@ -1,12 +1,11 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router";
 import UserContext from "../context/userContext";
+import { googleProvider } from "../helper";
+import firebase from "firebase/app";
+import "firebase/auth";
 
 const Login = () => {
-  //   const [userData, setUserData] = useState({
-  //     email: "",
-  //     password: "",
-  //   });
   const navigate = useNavigate();
   const { setCheckLogin } = useContext(UserContext);
   const [email, setEmail] = useState("");
@@ -22,6 +21,11 @@ const Login = () => {
     setCheckLogin(true);
     navigate("/");
   };
+
+  const handleGoogleLogin = () => {
+    firebase.auth().signInWithPopup(googleProvider);
+  };
+
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -56,6 +60,14 @@ const Login = () => {
           Sign in
         </button>
       </form>
+      <hr />
+
+      <button
+        type="button"
+        onClick={() => handleGoogleLogin()}
+        className="btn btn-outline-danger">
+        Google Auth
+      </button>
     </>
   );
 };

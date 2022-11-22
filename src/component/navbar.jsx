@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getLocalStorage } from "../commonFunctions/getLocalStorage";
 import UserContext from "../context/userContext";
-
+import style from "./style.module.scss";
 const Navbar = () => {
   const [check, setCheck] = useState(false);
   const context = useContext(UserContext);
+  const { user } = useSelector((state) => state.userData);
   const checkLogin = () => {
     // const userData = getLocalStorage();
     // if (!userData.email || !userData.password) {
@@ -60,7 +62,6 @@ const Navbar = () => {
                   Login
                 </Link>
               )}
-
               {/* <a
                 className="nav-link disabled"
                 href="#"
@@ -69,6 +70,7 @@ const Navbar = () => {
                 Disabled
               </a> */}
             </div>
+            <div className={style.textName}>{user && user?.userEmail}</div>
           </div>
         </div>
       </nav>

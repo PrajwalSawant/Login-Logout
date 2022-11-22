@@ -4,7 +4,10 @@ import { useNavigate } from "react-router";
 import UserContext from "../context/userContext";
 import { useDispatch } from "react-redux";
 import { setNotes } from "../slice/notesSlice";
-import { database } from "../helper";
+import { database, googleProvider } from "../helper";
+import firebase from "firebase/app";
+import "firebase/auth";
+import { setUserData } from "../slice/userSlice";
 
 const Layout = ({ children }) => {
   const context = useContext(UserContext);
@@ -17,6 +20,17 @@ const Layout = ({ children }) => {
       dispatch(setNotes(data));
     });
   };
+  const fetchUserData = () => {
+    firebase.auth().onAuthStateChanged((user) => {
+      localStorage.setItem("email", user.email);
+      localStorage.setItem("password", user.displayName);
+      dispatch(
+        setUserData({ userEmail: user.email, accessToken: user.refreshToken })
+      );
+      context.setCheckLogin(true);
+      navigate("/");
+    });
+  };
   useEffect(() => {
     if (!context.checkLogin) {
       if (!userData.email || !userData.password) {
@@ -26,6 +40,7 @@ const Layout = ({ children }) => {
         context.setCheckLogin(true);
       }
       fetchData();
+      fetchUserData();
     }
   }, []);
 

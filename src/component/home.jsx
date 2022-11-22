@@ -3,9 +3,9 @@ import UserContext from "../context/userContext";
 
 const Home = () => {
   const [count, setCount] = useState(0);
+  let counts = 100;
   const context = useContext(UserContext);
   const [check, setCheck] = useState(false);
-  const abc = "hello";
   return (
     <>
       <h1>This is home page</h1>
@@ -13,6 +13,7 @@ const Home = () => {
       <button
         onClick={() => {
           setCount(count + 1);
+          // counts += 1;
         }}>
         Add
       </button>

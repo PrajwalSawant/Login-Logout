@@ -1,12 +1,16 @@
 import React, { useContext } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import UserContext from "../context/userContext";
+import { setUserData } from "../slice/userSlice";
 
 const LogOut = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { setCheckLogin } = useContext(UserContext);
   const handleLogout = () => {
     setCheckLogin(false);
+    dispatch(setUserData(null));
     localStorage.clear();
     navigate("/login");
   };
