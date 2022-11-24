@@ -53,6 +53,9 @@ const Navbar = () => {
               <Link className="nav-link" to="/notepage">
                 NotePage
               </Link>
+              <Link className="nav-link" to="/hoc">
+                HOC
+              </Link>
               {check ? (
                 <Link className="nav-link" to="/logout">
                   LogOut
